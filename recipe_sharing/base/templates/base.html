@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- Navigation Bar -->
+<nav class="bg-blue-500 p-4">
+    <div class="container mx-auto">
+        <h1 class="text-white text-2xl font-semibold"><a href="{% url 'base:index' %}">My Website</a></h1>
+        <!-- Add navigation links here -->
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mx-auto p-4">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        {% block content %}
+            <!-- Content for child templates will go here -->
+        {% endblock %}
+    </div>
+</div>
+
+
+
+<!-- Footer -->
+<footer class="bg-gray-300 p-4">
+    <div class="container mx-auto">
+        <p class="text-center text-gray-600">© {{ year }} My Website</p>
+    </div>
+</footer>
+
+</body>
+</html>

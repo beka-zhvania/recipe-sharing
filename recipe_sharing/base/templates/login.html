@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post" action=''>
+    {% csrf_token %}
+
+    <div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
+        <h1 class="mb-6 text-3xl">Log in</h1>
+        <div class="mb-3">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+        </div>
+
+        <div class="mb-3">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+        </div>
+
+        {% for message in messages %}
+            <div class="mb-3 p-3 bg-red-100 rounded-xl">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white" type="submit">Login</button>
+    </div>
+</form>
+
+
+{% endblock %}
