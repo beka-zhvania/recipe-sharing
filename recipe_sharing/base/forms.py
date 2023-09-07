@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-form_styling = 'w-full py-4 px-6 rounded-xl'
+form_styling = 'w-full py-4 px-6 rounded-xl text-black'
 
 class CustomRegistrationForm(UserCreationForm):
 
