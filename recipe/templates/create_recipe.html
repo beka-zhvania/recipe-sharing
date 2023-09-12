@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <section class="p-6 bg-gray-800 text-gray-50">
+    <form method="post" enctype="multipart/form-data" novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
+      {% csrf_token %}
+      <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-900">
+        <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3 ">
+          <div class="col-span-full sm:col-span-3">
+            <label for="{{ form.name.id_for_label }}" class="text-sm">Name</label>
+            {{ form.name }}
+          </div>
+          <div class="col-span-full sm:col-span-3">
+            <label for="{{ form.category.id_for_label }}" class="text-sm">Category</label>
+            {{ form.category }}
+          </div>
+          <div class="col-span-full">
+            <label for="{{ form.ingredients.id_for_label }}" class="text-sm">Ingredients</label>
+            {{ form.ingredients }}
+          </div>
+          <div class="col-span-full">
+            <label for="{{ form.steps.id_for_label }}" class="text-sm">Steps</label>
+            {{ form.steps }}
+          </div>
+          <div class="col-span-full">
+            <label for="{{ form.image.id_for_label }}" class="text-sm">Photo</label>
+            {{ form.image }}
+          </div>
+        </div>
+      </fieldset>
+      <button type="submit" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700">Create Recipe</button>
+    </form>
+  </section>
+
+  <script>
+    // This code snippet is needed to auto generate numbers when recipe steps are entered 
+    document.addEventListener("DOMContentLoaded", function() {
+      let stepsTextArea = document.getElementById("stepsField");
+      stepsTextArea.addEventListener("keydown", function(e) {
+          // Check if Enter key is pressed
+          if (e.key === 'Enter') {
+              // Prevent default Enter key behavior
+              e.preventDefault();
+              // Get the cursor position
+              let cursorPos = stepsTextArea.selectionStart;
+              // Count the number of lines (steps)
+              let stepNumber = (stepsTextArea.value.substring(0, cursorPos).match(/\n/g) || []).length + 2;
+              // Insert the new step number at the cursor position
+              let beforeCursor = stepsTextArea.value.substring(0, cursorPos);
+              let afterCursor = stepsTextArea.value.substring(cursorPos);
+              stepsTextArea.value = `${beforeCursor}\n${stepNumber}. ${afterCursor}`;
+              // Move the cursor position to right after the newly added step number
+              stepsTextArea.selectionStart = cursorPos + stepNumber.toString().length + 3;
+              stepsTextArea.selectionEnd = stepsTextArea.selectionStart;
+          }
+      });
+  });
+  
+  </script>
+  
+{% endblock %}

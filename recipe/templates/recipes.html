@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="max-w-3xl mx-auto p-6">
+    <h1 class="text-2xl font-semibold mb-4">All Recipes</h1>
+
+    <ul>
+      {% for recipe in recipes %}
+        <li>
+          <h2>{{ recipe.name }}</h2>
+          <p>Category: {{ recipe.category }}</p>
+          <p>Author: {{ recipe.author }}</p>
+          <p>Creation Date: {{ recipe.creation_date }}</p>
+
+          {% if recipe.image %}
+            <div>
+               <img src="{{ recipe.image.url }}" class="rounded-t-xl">
+            </div>
+          {% else %}
+            <p>no image provided </p>
+          {% endif %}
+        </li>
+      </br>
+      {% empty %}
+        <p>No recipes available.</p>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

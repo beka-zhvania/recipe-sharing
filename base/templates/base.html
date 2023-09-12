@@ -17,8 +17,8 @@
         {% if request.user.is_authenticated %}
 
             <div>
-                <a href="" class="px-6 py-3 text-lg font-semibold bg-teal-500  rounded-xl hover:text-gray-500 bg-teal-700 text-white">New recipe</a>
-                <a href="" class="px-6 py-3 text-lg font-semibold bg-teal-500  rounded-xl hover:text-gray-500 bg-teal-700 text-white">Browse</a>
+                <a href="{% url 'recipe:new' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500  rounded-xl hover:text-gray-500 bg-teal-700 text-white">New recipe</a>
+                <a href="{% url 'recipe:recipes' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500  rounded-xl hover:text-gray-500 bg-teal-700 text-white">Browse</a>
                 <a href="" class="px-6 py-3 text-lg font-semibold bg-teal-500  rounded-xl hover:text-gray-500 bg-teal-700 text-white">Inbox</a>
                 <a href="{% url 'base:index' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500  rounded-xl hover:text-gray-500 bg-teal-700 text-white">Dashboard</a>
             </div>
