@@ -8,9 +8,7 @@ class NewRecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = ['name', 'category', 'image', 'ingredients', 'steps']
-
-    ingredients = forms.CharField(widget=forms.TextInput())  # Override widget type
+        fields = ['name', 'category', 'image', 'short_description', 'ingredients', 'steps']
 
     
     def __init__(self, *args, **kwargs):
@@ -18,9 +16,14 @@ class NewRecipeForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({'class': input_style})
         self.fields['category'].widget.attrs.update({'class': input_style})
+        self.fields['short_description'].widget.attrs.update({
+            'class': input_style,
+            'placeholder': ' A breakfast sandwich...'
+        })
         self.fields['ingredients'].widget.attrs.update({
             'class': input_style,
-            'placeholder': ' 2 Onions, 100g milk...'
+            'placeholder': ' 2 Onions, 100g milk...',
+            'rows': 2
         })
         self.fields['steps'].widget.attrs.update({
             'class': input_style,

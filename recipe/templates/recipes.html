@@ -1,29 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="max-w-3xl mx-auto p-6">
-    <h1 class="text-2xl font-semibold mb-4">All Recipes</h1>
 
-    <ul>
-      {% for recipe in recipes %}
-        <li>
-          <h2>{{ recipe.name }}</h2>
-          <p>Category: {{ recipe.category }}</p>
-          <p>Author: {{ recipe.author }}</p>
-          <p>Creation Date: {{ recipe.creation_date }}</p>
+<div class="flex gap-10" >
 
-          {% if recipe.image %}
-            <div>
-               <img src="{{ recipe.image.url }}" class="rounded-t-xl">
-            </div>
-          {% else %}
-            <p>no image provided </p>
-          {% endif %}
-        </li>
-      </br>
-      {% empty %}
-        <p>No recipes available.</p>
-      {% endfor %}
-    </ul>
+  <div class="w-1/6 bg-gray-900 text-gray-100"> <!-- 1/4 of space -->
+
   </div>
+
+  <div class="w-5/4 "> <!-- 3/4 of space -->
+    {% comment %} <h1 class="text-center text-2xl font-semibold mb-4 md:col-span-2">All Recipes</h1> {% endcomment %}
+    <div class="grid grid-cols-4 gap-10  ">
+    
+      {% for recipe in recipes %}
+        <div class="col-span-1 max-w-xs p-6 rounded-md shadow-md bg-gray-900 text-gray-50">
+          <img src="{{recipe.image.url}}" alt="" class="object-cover object-center w-full rounded-md h-72 graybg-gray-500">
+          <div class="mt-6 mb-2">
+            <span class="block text-xs font-medium tracki uppercase graytext-violet-400">{{recipe.category}}</span>
+            <h2 class="text-xl font-semibold tracki">{{recipe.name}}</h2>
+          </div>
+          <p class="graytext-gray-100">{{recipe.short_description}}</p> 
+        </div>
+      {% endfor %}
+    </div>
+    
+    
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

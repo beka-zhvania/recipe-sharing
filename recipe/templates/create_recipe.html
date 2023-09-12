@@ -16,6 +16,10 @@
             {{ form.category }}
           </div>
           <div class="col-span-full">
+            <label for="{{ form.short_description.id_for_label }}" class="text-sm">Short description</label>
+            {{ form.short_description }}
+          </div>
+          <div class="col-span-full">
             <label for="{{ form.ingredients.id_for_label }}" class="text-sm">Ingredients</label>
             {{ form.ingredients }}
           </div>
