@@ -10,17 +10,20 @@
 
   <div class="w-5/4 "> <!-- 3/4 of space -->
     {% comment %} <h1 class="text-center text-2xl font-semibold mb-4 md:col-span-2">All Recipes</h1> {% endcomment %}
-    <div class="grid grid-cols-4 gap-10  ">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+
     
       {% for recipe in recipes %}
-        <div class="col-span-1 max-w-xs p-6 rounded-md shadow-md bg-gray-900 text-gray-50">
-          <img src="{{recipe.image.url}}" alt="" class="object-cover object-center w-full rounded-md h-72 graybg-gray-500">
-          <div class="mt-6 mb-2">
-            <span class="block text-xs font-medium tracki uppercase graytext-violet-400">{{recipe.category}}</span>
-            <h2 class="text-xl font-semibold tracki">{{recipe.name}}</h2>
+        <a href="{% url 'recipe:recipe_details' recipe.id %}" class="hover:bg-gray-200 rounded-md">
+          <div class="h-full col-span-1 max-w-xs p-6 rounded-md bg-gray-900 text-gray-50 hover:bg-gray-200 hover:text-gray-900">
+            <img src="{{recipe.image.url}}" alt="" class="object-cover object-center w-full rounded-md h-72 graybg-gray-500">
+            <div class="mt-6 mb-2">
+              <span class="block text-xs font-medium tracki uppercase graytext-violet-400">{{recipe.category}}</span>
+              <h2 class="text-xl font-semibold tracki">{{recipe.name}}</h2>
+            </div>
+            <p class="graytext-gray-100">{{recipe.short_description}}</p> 
           </div>
-          <p class="graytext-gray-100">{{recipe.short_description}}</p> 
-        </div>
+        </a>
       {% endfor %}
     </div>
     

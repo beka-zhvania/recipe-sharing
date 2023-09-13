@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewRecipeForm
 from django.contrib.auth.decorators import login_required
 from .models import Recipe
@@ -22,3 +22,7 @@ def create_recipe(request):
         form = NewRecipeForm()
 
     return render(request, 'create_recipe.html', {'form': form})
+
+def recipe_details(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+    return render(request, 'recipe_details.html', {'recipe':recipe})

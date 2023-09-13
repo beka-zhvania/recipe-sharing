@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<div class="flex justify-center ">
+    <div class="flex max-w-screen-md  flex-col  justify-center bg-white p-10  rounded-lg shadow-md">
+
+        <!-- Recipe name -->
+        <div class="flex justify-center">
+            <h2 class="text-3xl font-bold mb-4 text-gray-900 ">{{ recipe.name }}</h2>
+        </div>
+
+        <!-- Recipe details -->
+        <div class="flex flex-col ">
+            <div class="flex justify-center">
+                <div class="w-full h-full max-w-md bg-white rounded-lg  bg-gray-900 text-gray-50  border-4 border-gray-900 ">
+                    <img src="{{recipe.image.url}}" alt="Image" class="object-cover object-center w-full h-full">
+                </div>
+            </div>
+
+            <div class=" w-full recipe-item mt-4 m-2">
+                <p class="text-lg text-gray-700 mb-1"><strong>Category:</strong> {{ recipe.category.name }}</p>
+                <p class="text-lg text-gray-700 mb-1 whitespace-normal overflow-wrap break-words"><strong>Short Description:</strong> {{ recipe.short_description }}</p>
+                <p class="text-lg text-gray-700 mb-1"><strong>Author:</strong> {{ recipe.author.username }}</p>
+                <p class="text-lg text-gray-700 mb-1"><strong>Creation Date:</strong> {{ recipe.creation_date }}</p>
+            </div>
+
+            
+        </div>
+
+         <!-- Ingredients and preparation steps -->
+        <div class="">
+            <h2 class="text-xl font-semibold m-2">Ingredients:</h2>
+            <ul class="list-disc list-inside m-2">
+                {% for ingredient in recipe.ingredient_list %}
+                    <li class="text-lg">{{ ingredient }}</li>
+                {% endfor %}
+            </ul>
+            <h2 class="text-xl font-semibold m-2">Preparation Steps:</h2>
+            <ul class="list-disc list-inside m-2">
+                {% for step in recipe.step_list %}
+                    <li class="text-lg">{{ step }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+  
+  
+{% endblock %}

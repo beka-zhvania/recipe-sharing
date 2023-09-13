@@ -24,7 +24,20 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='recipe_images/', null=True, blank=True)
     ingredients = models.TextField(blank=True)
     steps = models.TextField(blank=True)
+
+    def ingredient_list(self):
+        if self.ingredients:
+            ingredient_list = [ingredient.strip() for ingredient in self.ingredients.split(',')]
+            return ingredient_list
+        else:
+            return []
     
+    def step_list(self):
+        if self.steps:
+            step_list = [step.strip() for step in self.steps.split('\n')]
+            return step_list
+        else:
+            return []
     
     def __str__(self):
         return f"{self.name} ({self.category})"
