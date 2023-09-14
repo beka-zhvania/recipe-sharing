@@ -3,6 +3,9 @@
 {% block content %}
 
   <section class="p-6 bg-gray-800 text-gray-50">
+
+    <h1 class="flex items-center justify-center text-2xl"> {{title}} </h1>
+
     <form method="post" enctype="multipart/form-data" novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
       {% csrf_token %}
       <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-900">
@@ -33,7 +36,7 @@
           </div>
         </div>
       </fieldset>
-      <button type="submit" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700">Create Recipe</button>
+      <button type="submit" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700">{{button_text}}</button>
     </form>
   </section>
 

@@ -1,16 +1,11 @@
 from django import forms
 from .models import Recipe
 
-form_styling = 'w-full py-14 px-6 rounded-xl text-black'
-
-class NewRecipeForm(forms.ModelForm):
-
-
+class BaseRecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = ['name', 'category', 'image', 'short_description', 'ingredients', 'steps']
 
-    
     def __init__(self, *args, **kwargs):
         input_style = 'w-full rounded-md focus:ring focus:ri focus:ri border-gray-700 text-gray-900'
         super().__init__(*args, **kwargs)
@@ -30,7 +25,12 @@ class NewRecipeForm(forms.ModelForm):
             'placeholder': ' 1. Cut onions\n 2. Add salt\n ... ',
             'id': 'stepsField'
         })
-        self.fields['steps'].initial = "1. " 
-
         self.fields['image'].widget.attrs.update({'class': 'w-full rounded-md focus:ring focus:ri focus:ri border-white-700 text-white-900'})
 
+class NewRecipeForm(BaseRecipeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['steps'].initial = "1. "
+
+class EditRecipeForm(BaseRecipeForm):
+    pass
