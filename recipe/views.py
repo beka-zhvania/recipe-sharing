@@ -53,4 +53,9 @@ def edit_recipe(request, pk):
         'button_text': 'Update Recipe'
     })
     
+@login_required
+def delete_recipe(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk, author=request.user)
+    recipe.delete()
 
+    return redirect('recipe:recipes')
