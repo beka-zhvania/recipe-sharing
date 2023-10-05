@@ -2,31 +2,63 @@
 
 {% block content %}
 
-<div class="flex gap-10" >
+<div class="flex   gap-10" >
 
-  <div class="w-1/6 bg-gray-900 text-gray-100"> <!-- 1/4 of space -->
+  <div class="px-2 w-1/6 bg-gray-900 text-white "> <!-- 1/4 of space -->
+
+    <h2 class="text-lg py-4 px-2 font-semibold  uppercase text-gray-400">Filter Recipes</h2>
+
+    <!-- Search Bar -->
+    <form class="" method="get" action="">
+      <div class="relative w-full">
+        <input name="query" class="w-full py-4 px-4 pl-10 border rounded-xl text-black" type="text" value="{{ query }}" placeholder="Fried Chicken, Chocolate Cake...">
+        <a rel="noopener noreferrer" id="submitBtn" href="#" class="absolute inset-y-0 left-0 flex items-center p-2 space-x-3 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-5 h-5 fill-current text-gray-400">
+            <path d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z"></path>
+          </svg>
+
+        </a>
+      </div>
+    </form>
+    
+
+
+
+
+    <hr class="my-6">
+
+    <h2 class="text-lg font-semibold text-white px-1">Categories</h2>
+
+    <ul>
+      {% for category in categories %}
+        <li class="px-4 py-1 hover:bg-gray-400">
+          <a href={% url 'recipe:recipes' %}?query={{ query }}&category={{ category.id }}>{{category.name}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <hr class="my-6">
+    <a href="{% url 'recipe:recipes' %}" class="mt-2 py-2 px-8 inline-block bg-gray-500 hover:bg-gray-400 text-lg rounded-xl text-white">Clear</a>
 
   </div>
 
-  <div class="w-5/4 "> <!-- 3/4 of space -->
-    {% comment %} <h1 class="text-center text-2xl font-semibold mb-4 md:col-span-2">All Recipes</h1> {% endcomment %}
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
 
-    
+  <div class="w-5/4 h-screen overflow-y-auto "> <!-- 3/4 of space -->
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
       {% for recipe in recipes %}
         <a href="{% url 'recipe:recipe_details' recipe.id %}" class="hover:bg-gray-200 rounded-md">
           <div class="h-full col-span-1 max-w-xs p-6 rounded-md bg-gray-900 text-gray-50 hover:bg-gray-200 hover:text-gray-900">
-            <img src="{{recipe.image.url}}" alt="" class="object-cover object-center w-full rounded-md h-72 graybg-gray-500">
+            <img src="{{recipe.image.url}}" alt="" class="object-cover object-center w-full rounded-md h-60 graybg-gray-500">
             <div class="mt-6 mb-2">
-              <span class="block text-xs font-medium tracki uppercase graytext-violet-400">{{recipe.category}}</span>
-              <h2 class="text-xl font-semibold tracki">{{recipe.name}}</h2>
+              <span class="block text-xs font-medium uppercase graytext-violet-400">{{recipe.category}}</span>
+              <h2 class="text-xl font-semibold ">{{recipe.name}}</h2>
             </div>
-            <p class="graytext-gray-100">{{recipe.short_description}}</p> 
+            <p class="graytext-gray-100 ">{{recipe.short_description}}</p> 
           </div>
         </a>
       {% endfor %}
     </div>
-    
     
   </div>
 
@@ -34,6 +66,13 @@
 
 
 
+<script>
+  document.getElementById("submitBtn").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.querySelector("form").submit();
+  });
+  
+</script>
 
 
 

@@ -1,11 +1,32 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewRecipeForm, EditRecipeForm
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from .models import Recipe
+from .models import Recipe, Category
 
 def recipes(request):
     recipes = Recipe.objects.all()
-    return render(request, 'recipes.html', {'recipes': recipes})
+    category_id = request.GET.get('category', 0) # use 0 as a default category
+    categories = Category.objects.all()
+    
+
+    query = request.GET.get('query', '')
+
+    if category_id:
+        # if category is specified, only use recipes from that category
+        recipes = recipes.filter(category_id=category_id)
+
+    if query:
+        # if searched string is contained in name, description or ingredient list, then it should be returned
+        recipes = recipes.filter(Q(name__icontains=query) | Q(short_description__icontains=query) | Q(ingredients__icontains=query))
+        
+
+    return render(request, 'recipes.html', {
+        'recipes': recipes,
+        'categories': categories,
+        'category_id': int(category_id)
+    })
+
 
 
 @login_required
