@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
-
     class Meta:
         verbose_name_plural = 'Categories'
 
@@ -43,3 +42,14 @@ class Recipe(models.Model):
         return f"{self.name} ({self.category})"
 
 
+class Favorite(models.Model):
+    user = models.ForeignKey(User, related_name='favorites', on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name='favorited_by', on_delete=models.CASCADE)
+    creation_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = (
+        'user', 'recipe')  # Prevents the same recipe from being added multiple times by the same user
+
+    def __str__(self):
+        return f"{self.user} favorites {self.recipe}"

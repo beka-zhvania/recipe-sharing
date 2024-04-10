@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewRecipeForm, EditRecipeForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from .models import Recipe, Category
+from .models import Recipe, Category, Favorite
 
 def recipes(request):
     recipes = Recipe.objects.all()
@@ -50,7 +50,8 @@ def create_recipe(request):
 
 def recipe_details(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
-    return render(request, 'recipe_details.html', {'recipe':recipe})
+    is_favorite = Favorite.objects.filter(user=request.user, recipe=recipe).exists()
+    return render(request, 'recipe_details.html', {'recipe':recipe, 'is_favorite' : is_favorite})
 
 
 @login_required
@@ -80,3 +81,17 @@ def delete_recipe(request, pk):
     recipe.delete()
 
     return redirect('recipe:recipes')
+
+
+@login_required
+def add_to_favorites(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    Favorite.objects.get_or_create(user=request.user, recipe=recipe)
+    return redirect('recipe:recipe_details', pk=recipe.id)
+
+
+@login_required
+def remove_from_favorites(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    Favorite.objects.filter(user=request.user, recipe=recipe).delete()
+    return redirect('recipe:recipe_details', pk=recipe.id)
