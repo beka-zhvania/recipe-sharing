@@ -6,7 +6,7 @@ from .models import Recipe, Category
 
 def recipes(request):
     recipes = Recipe.objects.all()
-    category_id = request.GET.get('category', 0) # use 0 as a default category
+    category_id = request.GET.get('category', 0)  # use 0 as a default category
     categories = Category.objects.all()
     
 

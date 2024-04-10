@@ -8,6 +8,16 @@
 
     <form method="post" enctype="multipart/form-data" novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
       {% csrf_token %}
+
+      <!-- Display non-field errors -->
+      {% if form.non_field_errors %}
+        <div class="text-red-500">
+          {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
       <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-900">
         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3 ">
           <div class="col-span-full sm:col-span-3">
@@ -17,6 +27,13 @@
           <div class="col-span-full sm:col-span-3">
             <label for="{{ form.category.id_for_label }}" class="text-sm">Category</label>
             {{ form.category }}
+            {% if form.category.errors %}
+              <div class="text-red-500">
+                {%  for error in form.category.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
           <div class="col-span-full">
             <label for="{{ form.short_description.id_for_label }}" class="text-sm">Short description</label>
@@ -33,7 +50,15 @@
           <div class="col-span-full">
             <label for="{{ form.image.id_for_label }}" class="text-sm">Photo</label>
             {{ form.image }}
+            {% if form.image.errors %}
+              <div class="text-red-500">
+                {% for error in form.image.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
+
         </div>
       </fieldset>
       <button type="submit" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700">{{button_text}}</button>

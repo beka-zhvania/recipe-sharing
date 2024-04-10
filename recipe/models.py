@@ -21,7 +21,7 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, related_name='recipes', on_delete=models.CASCADE)
     creation_date = models.DateField(auto_now_add=True)
     short_description = models.CharField(max_length=250, null=True)
-    image = models.ImageField(upload_to='recipe_images/', null=True, blank=True)
+    image = models.ImageField(upload_to='recipe_images/')
     ingredients = models.TextField(blank=True)
     steps = models.TextField(blank=True)
 
