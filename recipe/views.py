@@ -28,6 +28,13 @@ def recipes(request):
     })
 
 
+def carousel(request):
+    recipes = Recipe.objects.all()
+
+    return render(request, 'carousel.html', {
+        'recipes': recipes,
+    })
+
 
 @login_required
 def create_recipe(request):

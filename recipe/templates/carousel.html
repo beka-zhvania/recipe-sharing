@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<style>
+
+    .mySwiper {
+        position: relative;
+        padding: 70px 70px; /* Adds space around the Swiper */
+    }
+    .swiper-slide {
+        width: auto; /* Adjust this to control slide width */
+        flex-shrink: 0; /* Prevents slides from shrinking */
+    }
+
+
+    .welcome-message {
+        text-align: center; /* Centers the text horizontally */
+        margin: 20px 0; /* Adds some space above and below the text */
+        padding: 10px; /* Adds some padding inside the text box for better readability */
+        background-color: #f0f0f0; /* Light grey background */
+        border-radius: 8px; /* Rounded corners for the text box */
+        font-size: 1.5em; /* Larger text size */
+        color: #333; /* Dark grey text color for better contrast */
+    }
+
+        .welcome-message h1 {
+        font-size: 1.2em; /* Larger text size */
+        color: #333; /* Dark grey text color for better contrast */
+        font-weight: bold; /* Makes the text bold */
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+    <div class="welcome-message">
+        <h1 class='text-lg'>Welcome Back {{ request.user.username }}!</h1>
+    </div>
+
+    <!-- Swiper container -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            {% for recipe in recipes %}
+            <!-- Each slide -->
+            <div class="swiper-slide">
+                <a href="{% url 'recipe:recipe_details' recipe.id %}" class="hover:bg-gray-200 rounded-md">
+                    <div class="h-full max-w-xs p-6 rounded-md bg-gray-900 text-gray-50 hover:bg-gray-200 hover:text-gray-900">
+                        <img src="{{ recipe.image.url }}" alt="" class="object-cover object-center w-full rounded-md h-60">
+                        <div class="mt-6 mb-2">
+                            <span class="block text-xs font-medium uppercase">{{ recipe.category }}</span>
+                            <h2 class="text-xl font-semibold">{{ recipe.name }}</h2>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="swiper-pagination"></div>
+<!--        <div class="swiper-button-next"></div>-->
+<!--        <div class="swiper-button-prev"></div>-->
+    </div>
+{% else %}
+    <h1 class='text-lg'>You are not authenticated. Log in or register.</h1>
+{% endif %}
+{% endblock %}
+
+{% block extrajs %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var swiper = new Swiper('.mySwiper', {
+        loop: true,
+        autoplay: {
+            delay: 0,
+            disableOnInteraction: false,
+        },
+        speed: 2000,
+        slidesPerView: 'auto',
+        spaceBetween: 100,
+        freeMode: true,
+        freeModeMomentum: false,
+        freeModeMomentumBounce: false,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+    });
+
+      // Pause autoplay on mouse enter
+    swiper.el.onmouseenter = function() {
+        swiper.autoplay.stop();
+    };
+
+    // Resume autoplay on mouse leave
+    swiper.el.onmouseleave = function() {
+        swiper.autoplay.start();
+    };
+});
+
+
+</script>
+{% endblock extrajs %}
