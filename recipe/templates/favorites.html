@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <div class="container mx-auto px-4">
+    <h1 style="margin-bottom: 15px; background-image: linear-gradient(to right, #0f172a, #4c1d95); color: white; text-align: center; padding: 10px; font-size: 1.3em; font-weight: bold; border-radius: 8px;">
+        Favorite Recipes
+    </h1>
+
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+      {% for recipe in favorite_recipes %}
+        <a href="{% url 'recipe:recipe_details' recipe.id %}" class="hover:bg-gray-200 rounded-md">
+          <div class="h-full col-span-1 max-w-xs p-6 rounded-md bg-gray-900 text-gray-50 hover:bg-gray-200 hover:text-gray-900">
+            {% if recipe.image %}
+              <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="object-cover object-center w-full rounded-md h-60 bg-gray-500">
+            {% else %}
+              <div class="h-60 bg-gray-500 rounded-md"></div>
+            {% endif %}
+            <div class="mt-6 mb-2">
+              <span class="block text-xs font-medium uppercase text-violet-400">{{ recipe.category.name }}</span>
+              <h2 class="text-xl font-semibold">{{ recipe.name }}</h2>
+            </div>
+            <p class="text-gray-100">{{ recipe.short_description }}</p>
+          </div>
+        </a>
+      {% empty %}
+        <div class="col-span-full">
+          <p>No favorite recipes found.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

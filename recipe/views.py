@@ -91,6 +91,15 @@ def delete_recipe(request, pk):
 
 
 @login_required
+def favorites(request):
+    user = request.user
+    favorites = Favorite.objects.filter(user=user)
+    favorite_recipes = [favorite.recipe for favorite in favorites]
+    return render(request, 'favorites.html', {
+        'favorite_recipes' : favorite_recipes
+    })
+
+@login_required
 def add_to_favorites(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     Favorite.objects.get_or_create(user=request.user, recipe=recipe)
